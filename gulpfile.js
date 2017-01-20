@@ -19,7 +19,7 @@ gulp.task("dev:server", () => {
     connect.server({
     port: config.dev_port,
     root: "public",
-    livereload: true
+    //livereload: true
   })
 })
 
@@ -63,9 +63,9 @@ var bundle = (bundler, output) => {
        .on("error", () => {
            return gulpUtil.log(arguments)
        })
-       .pipe(gulpIf(false, gulpStreamify(gulpUglify()))) // Check this if it minimize js with true
+       .pipe(gulpIf(false, gulpStreamify(gulpUglify())))
        .pipe(source(output.file))
-       //.pipe(gulpStreamify(gulpUglify()))
+       .pipe(gulpStreamify(gulpUglify()))
        .pipe(gulp.dest(output.directory))
 }
 
@@ -102,6 +102,7 @@ gulp.task("build-and-watch:scripts", (done) => {
         indexJsBundler,
         indexJsBuilt,
         done,
+        () => {},
         () => {
             gulp.src('./public/index.html')
                 .pipe(connect.reload())
