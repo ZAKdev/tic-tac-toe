@@ -1,4 +1,27 @@
+// Variables
+$mainBg = #6bc6b4
+$primaryColor = #fff
+$font = Helvetica,Arial,'Sans serif'
+
 @import './components/Board';
+@import './components/GridItem';
+
+ul, ol, h1, h2, h3, p
+    margin 0
+    padding 0
 
 body
-	background #fff
+    background $mainBg
+    font-family $font
+    padding 40px
+    
+h2
+    font-weight normal
+    margin-bottom 30px
+    color $primaryColor
+    
+.AppRoute
+    display flex
+    flex-direction column
+    align-items center
+    

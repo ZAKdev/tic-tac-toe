@@ -1,15 +1,20 @@
 import { connect } from "react-redux";
 const
     React = require("react"),
-    Board = require("./../components/board");
+    AppActions = require("./AppActions"),
+    Board = require("./../components/Board");
 
 const AppRoute = React.createClass({
-    
-    render(){
+
+    ClickHandler(gridItem, gridIndex){
+        return this.props.onGridItemClickAction(gridItem, gridIndex, this.props.app.turn)
+    },
+
+    render() {
         return (
             <div className="AppRoute">
-                Testing React Route
-                <Board text="Board for tic tac toe"/>
+                <h2>Now turn of {this.props.app.turn}</h2>
+                <Board grid={this.props.app.grid} onGridItemClick={this.ClickHandler}/>
             </div>
         )
     }
@@ -21,4 +26,12 @@ const mapStateToProps = (state) => {
     }
 }
 
-module.exports = connect(mapStateToProps)(AppRoute);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onGridItemClickAction: (gridItem, gridIndex, currentTurn) => {
+            return dispatch(AppActions.onGridItemClick(gridItem, gridIndex, currentTurn))
+        }
+    }
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(AppRoute);
