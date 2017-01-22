@@ -1,4 +1,6 @@
-const _ = require("lodash");
+const
+    patteran = require("./../patteran"),
+    _ = require("lodash");
 
 const onGridItemClick = (grid, gridItem, gridIndex, currentTurn) => {
     return (dispatch) => {
@@ -46,68 +48,65 @@ const onGridItemClick = (grid, gridItem, gridIndex, currentTurn) => {
             // End Matching Horizontally
 
             // Start Matching Vertically
-            let gridBreakVert = grid,
-                vertical1 = [],
-                vertical2 = [],
-                vertical3 = [];
-            gridBreakVert.map((item, index) => {
-                if(item)
-                    if(index == 0 || index == 3 || index == 6)
-                        vertical1.push(item)
-                    if(index == 1 || index == 4 || index == 7)
-                        vertical2.push(item)
-                    if(index == 2 || index == 5 || index == 8)
-                        vertical3.push(item)
+            const vertical = [];
+
+            patteran.pattSecond.map((item) => {
+                vertical.push(grid[item])
             })
-            if(_.isEqual(vertical1, Xarray) || _.isEqual(vertical2, Xarray) || _.isEqual(vertical3, Xarray)){
-                dispatch({
-                    type: "SET_X",
-                    winner: _.take(Xarray).toString()
-                })
-                dispatch({
-                    type: "GAME_END"
-                })
-            }
-            if(_.isEqual(vertical1, Oarray) || _.isEqual(vertical2, Oarray) || _.isEqual(vertical3, Oarray)){
-                dispatch({
-                    type: "SET_O",
-                    winner: _.take(Oarray).toString()
-                })
-                dispatch({
-                    type: "GAME_END"
-                })
-            }
+
+            let gridBreakVert = _.chunk(vertical, 3);
+
+            gridBreakVert.map((items) => {
+                if(_.isEqual(items, Xarray)){
+                    dispatch({
+                        type: "SET_X",
+                        winner: _.take(items).toString()
+                    })
+                    dispatch({
+                        type: "GAME_END"
+                    })
+                }
+                if(_.isEqual(items, Oarray)){
+                    dispatch({
+                        type: "SET_O",
+                        winner: _.take(items).toString()
+                    })
+                    dispatch({
+                        type: "GAME_END"
+                    })
+                }
+            })
             // End Matching Vertically
 
             // Start Matching Cross
-            let gridBreakCross = grid,
-                cross1 = [],
-                cross2 = [];
-            gridBreakCross.map((item, index) => {
-                if(item)
-                    if(index == 0 || index == 4 || index == 8)
-                        cross1.push(item)
-                    if(index == 2 || index == 4 || index == 6)
-                        cross2.push(item)
+            const cross = [];
+
+            patteran.pattThird.map((item) => {
+                cross.push(grid[item])
             })
-            if(_.isEqual(cross1, Xarray) || _.isEqual(cross2, Xarray)){
-                dispatch({
-                    type: "SET_X",
-                    winner: _.take(Xarray).toString()
-                })
-                dispatch({
-                    type: "GAME_END"
-                })
-            }
-            if(_.isEqual(cross1, Oarray) || _.isEqual(cross2, Oarray)){
-                dispatch({
-                    type: "SET_O",
-                    winner: _.take(Oarray).toString()
-                })
-                dispatch({
-                    type: "GAME_END"
-                })
-            }
+
+            let gridBreakCross = _.chunk(cross, 3);
+            
+            gridBreakCross.map((items) => {
+                if(_.isEqual(items, Xarray)){
+                    dispatch({
+                        type: "SET_X",
+                        winner: _.take(items).toString()
+                    })
+                    dispatch({
+                        type: "GAME_END"
+                    })
+                }
+                if(_.isEqual(items, Oarray)){
+                    dispatch({
+                        type: "SET_O",
+                        winner: _.take(items).toString()
+                    })
+                    dispatch({
+                        type: "GAME_END"
+                    })
+                }
+            })
             // End Matching Cross
         }
     }

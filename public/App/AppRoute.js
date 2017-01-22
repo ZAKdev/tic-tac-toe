@@ -29,7 +29,7 @@ const AppRoute = React.createClass({
                 })()}
                 <Board grid={this.props.app.grid} onGridItemClick={this.ClickHandler}/>
                 {(() => {
-                    if(self.props.app.winner)
+                    if(!self.props.app.start)
                         return <button className="btn-primary" onClick={this.PlayHandler}>Play Again</button>
                 })()}
             </div>

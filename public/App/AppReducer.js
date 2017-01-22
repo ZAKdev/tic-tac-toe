@@ -13,9 +13,10 @@ module.exports = (state = {
             ))
         case "NEXT_TURN":
             let countSum = state.counts.X + state.counts.O
-            if(countSum == 8){
+            if(countSum == 9){
                 return Object.assign({}, state, {
-                    turn: ""
+                    turn: "",
+                    start: false,
                 })
             } else {
                 return Object.assign({}, state, {
@@ -32,15 +33,16 @@ module.exports = (state = {
             })
         case "GAME_END":
             return Object.assign({}, state, {
+                turn: "",
                 start: false,
-                turn: ""
             })
         case "PLAY_AGAIN":
             return Object.assign({}, state, {
                 grid: ["", "", "", "", "", "", "", "", ""],
                 start: true,
                 turn: "X",
-                winner: ""
+                winner: "",
+                counts: {X: 0, O: 0}
             })
         default:
             return state
