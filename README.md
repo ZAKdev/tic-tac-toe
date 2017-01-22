@@ -1,6 +1,8 @@
 # tic-tac-toe
 
-## Installation
+Expected node version is 6.0 or above
+
+## Installation & Run
 - Take clone of project
 - run `sudo npm install`
 - run `gulp`
